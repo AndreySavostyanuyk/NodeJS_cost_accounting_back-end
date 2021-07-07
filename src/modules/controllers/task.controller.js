@@ -15,7 +15,6 @@ module.exports.allExpenses = (req, res, next) => {
     });
     return sum;
   };
-
   Task.find().then(result => {
     res.send({sum:testFunction(result)});
   });
