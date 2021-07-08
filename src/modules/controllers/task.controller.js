@@ -1,60 +1,48 @@
-const Task = require('../../db/models/task/index');
+const Expenses = require('../../db/models/task/index');
 
-module.exports.allTasks = (req, res, next) => {
-  Task.find().then(result => {
+module.exports.allExpenses = (req, res, next) => {
+  Expenses.find().then(result => {
     res.send({data: result})
   });
 };
 
-module.exports.allExpenses = (req, res, next) => {
-  testFunction = (arr) => {
-    let sum = 0 ;
-    arr.forEach(element => {
-      let {_id, text, text2} = element;
-      sum = sum + Number(text);
+module.exports.createExpenses = (req, res, next) => {
+  const expenses = new Expenses(req.body);
+  
+  if(typeof(expenses.Score) === 'string' && typeof(expenses.Cost) === 'number' && expenses.Score != "" && expenses.Cost != ""){
+    expenses.save().then(result1 => {
+      Expenses.find().then(result => {
+        res.send({data: result})
+      });
     });
-    return sum;
-  };
-  Task.find().then(result => {
-    res.send({sum:testFunction(result)});
-  });
+  }else {
+    Expenses.find().then(result => {
+      res.send(console.log('error'))
+    });
+  }
 };
 
-module.exports.createTasks = (req, res, next) => {
-  const task = new Task(req.body);
-
-  task.save().then(result1 => {
-    Task.find().then(result => {
+module.exports.editExpenses = (req, res, next) => {
+  Expenses.updateOne({_id: req.body._id}, req.body).then(result => {
+    Expenses.find().then(result => {
       res.send({data: result})
     });
   });
 };
 
-module.exports.editTasks = (req, res, next) => {
-  Task.updateOne({
-    text:req.body.text,
-    text2:req.body.text2
-  }).then(result => {
-    Task.find().then(result => {
-      res.send({data: result})
-    });
-  });
-};
 
-module.exports.deleteTasks = (req, res, next) => {
-  Task.deleteOne({
+module.exports.deleteExpenses = (req, res, next) => {
+  Expenses.deleteOne({
     _id: req.query._id
   }).then(result => {
-    Task.find().then(result => {
+    Expenses.find().then(result => {
       res.send({data: result})
     });
   });
 };  
 
-module.exports.deleteAllTasks = (req, res, next) => {
-  Task.deleteMany().then(result => {
-    Task.find().then(result => {
-      res.send({data: result})
-    });
+module.exports.deleteAllExpenses = (req, res, next) => {
+  Expenses.deleteMany().then(result => {
+    res.send({data: result})
   });
 };

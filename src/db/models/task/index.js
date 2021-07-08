@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const taskSchema = new Schema({
-  text: String,
-  text2: String,
-  date: { type: Date, default: Date.now }
+const expensesSchema = new Schema({
+  Score: String,
+  Cost: Number,
+  date: String
 });
 
-module.exports = Task = mongoose.model("tasks", taskSchema);
+
+module.exports = Expenses = mongoose.model("expenses", expensesSchema);
