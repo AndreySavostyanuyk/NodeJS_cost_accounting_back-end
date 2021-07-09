@@ -7,11 +7,9 @@ const {
   editExpenses,
   deleteExpenses,
   deleteAllExpenses,
-  // ExpensesSum
 } = require('../controllers/task.controller');
 
 router.get('/allExpenses', allExpenses);
-// router.get('/ExpensesSum', ExpensesSum);
 router.post('/createExpenses', createExpenses);
 router.patch('/editExpenses', editExpenses);
 router.delete('/deleteExpenses', deleteExpenses);
